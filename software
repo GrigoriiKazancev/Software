@@ -1,0 +1,15 @@
+import threading
+
+class ContinuousWorker(threading.Thread):
+    def __init__(self, *args, **kwargs):
+        super().__init__(args, kwargs) #=> this returns Error: assert group is None, "group argument must be None for now"
+        # self.Thread.__init__(args, kwargs) #=> this returns Error: 'WorkerA' object has no attribute 'Thread'
+
+class WorkerA(ContinuousWorker):
+    def __init__(self, argument, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.argument = argument
+
+if __name__ == "__main__":
+    child_class_specific_argument = 1
+    worker = WorkerA(child_class_specific_argument, thread_name = "threadA", daemon = True)
